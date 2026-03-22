@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE System SYSTEM "https://www.holobloc.com/xml/LibraryElement.dtd" >
+<System Name="TrafficLightSysAdv" Comment="System Configuration" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc." Version="0.4" Author="JHC" Date="2009-03-05" Remarks="Deleted Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.3" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWSYSTEM." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2002-11-05" Remarks="Fixed missing (empty) FBD in Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-17" Remarks="Minor cleanup" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+<CompilerInfo packageName="fb.rt.test" >
+  <Import declaration="fb.datatype.*" />
+  <Import declaration="fb.rt.*" />
+  <Import declaration="fb.rt.events.E_RESTART" />
+  <Import declaration="fb.rt.hmi.FRAME_DEVICE" />
+  <Import declaration="java.awt.*" />
+</CompilerInfo>
+  <Device Name="TL1_HMI" Type="FRAME_DEVICE" x="835.2941" y="270.58823" >
+    <Parameter Name="BOUNDS" Value="[0,0,300,300]" />
+    <Resource Name="HMI1" Type="VIEW_PANEL" x="1070.5883" y="888.2353" >
+      <Parameter Name="SIZE" Value="[15,15]" />
+      <Parameter Name="DIA" Value="10" />
+      <FBNetwork >
+        <FB Name="Red1" Type="PUBL_1" x="4958.823" y="335.2941" >
+        </FB>
+        <FB Name="Yellow1" Type="PUBL_1" x="6400.0" y="1594.1177" >
+        </FB>
+        <FB Name="Green1" Type="PUBL_1" x="6264.7056" y="2670.5881" >
+        </FB>
+        <FB Name="Split31" Type="E_SPLIT3" x="3964.7058" y="1664.7058" >
+        </FB>
+        <FB Name="ESplit2" Type="E_SPLIT" x="3141.1765" y="1788.2352" >
+        </FB>
+        <FB Name="Counter" Type="MyFBCountAdvan" x="1111.7646" y="1376.4706" >
+        </FB>
+        <FB Name="MyFB" Type="TrafficLightFB" x="2147.0588" y="1288.2352" >
+          <Parameter Name="TGreen" Value="t#1000ms" />
+          <Parameter Name="TYellow" Value="t#2000ms" />
+        </FB>
+        <FB Name="Emrge1" Type="E_MERGE" x="694.1176" y="2429.4116" >
+        </FB>
+        <FB Name="InEvent" Type="IN_EVENT" x="252.94118" y="1541.1764" >
+          <Parameter Name="QI" Value="1" />
+        </FB>
+        <FB Name="Ecycle" Type="E_CYCLE" x="3535.294" y="2517.647" >
+        </FB>
+        <EventConnections>
+          <Connection Source="Split31.EO1" Destination="Red1.REQ" dx1="58.82353" />
+          <Connection Source="Split31.EO2" Destination="Yellow1.REQ" dx1="358.82352" />
+          <Connection Source="Split31.EO3" Destination="Green1.REQ" dx1="58.82353" />
+          <Connection Source="ESplit2.EO1" Destination="Split31.EI" dx1="58.82353" />
+          <Connection Source="Red1.INITO" Destination="Yellow1.INIT" dx1="58.82353" dx2="58.82353" dy="1235.2941" />
+          <Connection Source="Yellow1.INITO" Destination="Green1.INIT" dx1="58.82353" dx2="58.82353" dy="1241.1764" />
+          <Connection Source="MyFB.TimeStart" Destination="ESplit2.EI" dx1="182.35294" />
+          <Connection Source="Counter.INITO" Destination="Red1.INIT" dx1="58.82353" />
+          <Connection Source="Counter.CNF" Destination="MyFB.REQ" dx1="200.0" />
+          <Connection Source="Emrge1.EO" Destination="Counter.REQ" dx1="58.82353" />
+          <Connection Source="START.COLD" Destination="InEvent.INIT" dx1="58.82353" />
+          <Connection Source="InEvent.INITO" Destination="Counter.INIT" dx1="58.82353" />
+          <Connection Source="InEvent.IND" Destination="Emrge1.EI1" dx1="58.82353" />
+          <Connection Source="ESplit2.EO2" Destination="Ecycle.START" dx1="58.82353" />
+          <Connection Source="Ecycle.EO" Destination="Emrge1.EI2" dx1="58.82353" dx2="58.82353" dy="111.7647" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="MyFB.QRed" Destination="Red1.SD_1" dx1="300.0" />
+          <Connection Source="MyFB.QYellow" Destination="Yellow1.SD_1" dx1="58.82353" />
+          <Connection Source="MyFB.QGreen" Destination="Green1.SD_1" dx1="129.41176" />
+          <Connection Source="Counter.QO" Destination="MyFB.Mode" dx1="58.82353" />
+          <Connection Source="MyFB.CurrentDelay" Destination="Ecycle.DT" dx1="58.82353" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+  <Device Name="Model" Type="FRAME_DEVICE" x="847.05884" y="888.2353" >
+    <Parameter Name="BOUNDS" Value="[300,0,300,300]" />
+    <Resource Name="Model1" Type="VIEW_PANEL" x="1247.0588" y="1052.9412" >
+      <Parameter Name="DIA" Value="10" />
+      <Parameter Name="SIZE" Value="[15,15]" />
+    </Resource>
+  </Device>
+  <Device Name="VIew" Type="FRAME_DEVICE" x="852.94116" y="1535.2941" >
+    <Parameter Name="BOUNDS" Value="[600,0,300,300]" />
+    <Resource Name="TL1_View" Type="VIEW_PANEL" x="764.7059" y="394.11765" >
+      <Parameter Name="DIA" Value="10" />
+      <Parameter Name="SIZE" Value="[30,30]" />
+      <FBNetwork >
+        <FB Name="Red1" Type="SUBL_1" x="788.2353" y="82.352936" >
+        </FB>
+        <FB Name="TL1" Type="TrafficLight_HMI" x="4752.941" y="188.23529" >
+        </FB>
+        <FB Name="Yellow1" Type="SUBL_1" x="1270.5883" y="1676.4706" >
+        </FB>
+        <FB Name="Green1" Type="SUBL_1" x="1911.7646" y="2617.647" >
+        </FB>
+        <FB Name="Merge1" Type="E_MERGE3" x="3341.1765" y="1541.1764" >
+        </FB>
+        <EventConnections>
+          <Connection Source="Red1.IND" Destination="Merge1.EI1" dx1="864.7059" />
+          <Connection Source="Yellow1.IND" Destination="Merge1.EI2" dx1="605.8823" />
+          <Connection Source="Green1.IND" Destination="Merge1.El3" dx1="58.82353" />
+          <Connection Source="Merge1.EO" Destination="TL1.REQ" dx1="58.82353" dx2="58.82353" dy="88.23529" />
+          <Connection Source="START.COLD" Destination="Red1.INIT" dx1="58.82353" />
+          <Connection Source="Red1.INITO" Destination="Yellow1.INIT" dx1="58.82353" dx2="58.82353" dy="964.7059" />
+          <Connection Source="Yellow1.INITO" Destination="Green1.INIT" dx1="276.47058" dx2="58.82353" dy="882.3529" />
+          <Connection Source="Green1.INITO" Destination="TL1.INIT" dx1="658.8235" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="Red1.RD_1" Destination="TL1.LED2" dx1="3470.5881" />
+          <Connection Source="Yellow1.RD_1" Destination="TL1.LED1" dx1="158.82353" />
+          <Connection Source="Green1.RD_1" Destination="TL1.LED0" dx1="835.2941" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+</System>
