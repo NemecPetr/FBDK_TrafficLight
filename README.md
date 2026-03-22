@@ -38,7 +38,7 @@ Semaphore inputs:
 
 ## Report
 Documentation regarding implementation and individual steps during development is avaliable on this webpage.
-https://www.overleaf.com/2344559412wjrnjgwzzyvd#b5d047
+https://www.overleaf.com/project/69b40f7196358a8cb1ea73e1
 
 ## Video
 
