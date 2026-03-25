@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE System SYSTEM "https://www.holobloc.com/xml/LibraryElement.dtd" >
+<System Name="TL_Task1aCentr" Comment="System Configuration" >
+  <Identification Standard="61499-1" />
+  <VersionInfo Organization="Holobloc Inc." Version="0.4" Author="JHC" Date="2009-03-05" Remarks="Deleted Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.3" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWSYSTEM." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2002-11-05" Remarks="Fixed missing (empty) FBD in Application." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-17" Remarks="Minor cleanup" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+<CompilerInfo packageName="fb.rt.myfb" >
+  <Import declaration="fb.datatype.*" />
+  <Import declaration="fb.rt.*" />
+  <Import declaration="fb.rt.events.E_RESTART" />
+  <Import declaration="fb.rt.hmi.FRAME_DEVICE" />
+  <Import declaration="java.awt.*" />
+</CompilerInfo>
+  <Device Name="VIew" Type="FRAME_DEVICE" x="858.8235" y="988.2353" >
+    <Parameter Name="BOUNDS" Value="[0,0,300,300]" />
+    <Resource Name="TL1_View" Type="VIEW_PANEL" x="747.05884" y="382.35294" >
+      <Parameter Name="DIA" Value="5" />
+      <Parameter Name="SIZE" Value="[50,30]" />
+      <FBNetwork >
+        <FB Name="TL1_View" Type="TrafficLight_HMI" x="2770.5881" y="194.11765" >
+        </FB>
+        <FB Name="ModtoView1" Type="SUBL_3" x="1294.1177" y="194.11765" >
+        </FB>
+        <FB Name="RT1" Type="SUBL_1" x="3788.235" y="194.11765" >
+        </FB>
+        <FB Name="RT1_View" Type="OUT_ANY" x="4729.4116" y="200.0" >
+          <Parameter Name="QI" Value="1" />
+        </FB>
+        <FB Name="Start" Type="IN_EVENT" x="5576.4707" y="1335.2941" >
+          <Parameter Name="QI" Value="1" />
+          <Parameter Name="LABEL" Value="&#34;Start&#34;" />
+        </FB>
+        <FB Name="StartNet" Type="PUBL_0" x="6582.353" y="1311.7646" >
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="ModtoView1.INIT" dx1="58.82353" />
+          <Connection Source="ModtoView1.INITO" Destination="TL1_View.INIT" dx1="58.82353" />
+          <Connection Source="ModtoView1.IND" Destination="TL1_View.REQ" dx1="58.82353" />
+          <Connection Source="TL1_View.INITO" Destination="RT1.INIT" dx1="58.82353" />
+          <Connection Source="RT1.INITO" Destination="RT1_View.INIT" dx1="58.82353" />
+          <Connection Source="RT1.IND" Destination="RT1_View.REQ" dx1="58.82353" />
+          <Connection Source="RT1_View.INITO" Destination="Start.INIT" dx1="58.82353" />
+          <Connection Source="Start.INITO" Destination="StartNet.INIT" dx1="58.82353" />
+          <Connection Source="Start.IND" Destination="StartNet.REQ" dx1="58.82353" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="ModtoView1.RD_1" Destination="TL1_View.LED2" dx1="58.82353" />
+          <Connection Source="ModtoView1.RD_2" Destination="TL1_View.LED1" dx1="58.82353" />
+          <Connection Source="ModtoView1.RD_3" Destination="TL1_View.LED0" dx1="58.82353" />
+          <Connection Source="RT1.RD_1" Destination="RT1_View.IN" dx1="211.76471" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+    <Resource Name="TL2_View" Type="VIEW_PANEL" x="747.05884" y="1347.0588" >
+      <Parameter Name="DIA" Value="5" />
+      <Parameter Name="SIZE" Value="[50,30]" />
+      <FBNetwork >
+        <FB Name="TL2_View" Type="TrafficLight_HMI" x="2411.7646" y="264.70587" >
+        </FB>
+        <FB Name="ModtoView2" Type="SUBL_3" x="1500.0" y="264.70587" >
+        </FB>
+        <FB Name="RT2" Type="SUBL_1" x="3600.0" y="264.70587" >
+        </FB>
+        <FB Name="RT2_View" Type="OUT_ANY" x="4647.0586" y="264.70587" >
+          <Parameter Name="QI" Value="1" />
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="ModtoView2.INIT" dx1="58.82353" />
+          <Connection Source="ModtoView2.INITO" Destination="TL2_View.INIT" dx1="58.82353" />
+          <Connection Source="ModtoView2.IND" Destination="TL2_View.REQ" dx1="58.82353" />
+          <Connection Source="TL2_View.INITO" Destination="RT2.INIT" dx1="58.82353" />
+          <Connection Source="RT2.INITO" Destination="RT2_View.INIT" dx1="58.82353" />
+          <Connection Source="RT2.IND" Destination="RT2_View.REQ" dx1="58.82353" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="ModtoView2.RD_1" Destination="TL2_View.LED2" dx1="58.82353" />
+          <Connection Source="ModtoView2.RD_2" Destination="TL2_View.LED1" dx1="58.82353" />
+          <Connection Source="ModtoView2.RD_3" Destination="TL2_View.LED0" dx1="58.82353" />
+          <Connection Source="RT2.RD_1" Destination="RT2_View.IN" dx1="235.29411" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+  <Device Name="Controller" Type="FRAME_DEVICE" x="864.7059" y="1541.1764" >
+    <Parameter Name="BOUNDS" Value="[300,0,300,300]" />
+    <Resource Name="Control" Type="VIEW_PANEL" x="770.5882" y="1205.8823" >
+      <Parameter Name="SIZE" Value="[10,10]" />
+      <FBNetwork >
+        <FB Name="TL1Cntrl" Type="TLCtrl" x="2158.8235" y="711.7647" >
+          <Parameter Name="TYellow" Value="3" />
+          <Parameter Name="TGreen" Value="5" />
+          <Parameter Name="StartComm" Value="1" />
+        </FB>
+        <FB Name="Timer1" Type="E_CYCLE" x="900.0" y="1270.5883" >
+          <Parameter Name="DT" Value="t#1s" />
+        </FB>
+        <FB Name="TL2Cntrl" Type="TLCtrl" x="3147.0588" y="2100.0" >
+          <Parameter Name="TYellow" Value="6" />
+          <Parameter Name="TGreen" Value="10" />
+          <Parameter Name="StartComm" Value="0" />
+        </FB>
+        <FB Name="SplitTL11" Type="E_SPLIT" x="1382.3529" y="1270.5883" >
+        </FB>
+        <FB Name="CtrltoMode1" Type="PUBL_3" x="4541.1763" y="711.7647" >
+        </FB>
+        <FB Name="CtrltoMode2" Type="PUBL_3" x="4505.8823" y="2100.0" >
+        </FB>
+        <FB Name="RT1" Type="PUBL_1" x="6082.353" y="1047.0588" >
+        </FB>
+        <FB Name="RT2" Type="PUBL_1" x="5911.7646" y="2435.2942" >
+        </FB>
+        <FB Name="StartNet" Type="SUBL_0" x="482.35294" y="417.64706" >
+        </FB>
+        <EventConnections>
+          <Connection Source="Timer1.EO" Destination="SplitTL11.EI" dx1="58.82353" />
+          <Connection Source="SplitTL11.EO1" Destination="TL1Cntrl.REQ" dx1="58.82353" />
+          <Connection Source="SplitTL11.EO2" Destination="TL2Cntrl.REQ" dx1="58.82353" />
+          <Connection Source="TL1Cntrl.P_CONTROL" Destination="TL2Cntrl.T_CONTROL" dx1="94.117645" />
+          <Connection Source="TL2Cntrl.INITO" Destination="CtrltoMode2.INIT" dx1="58.82353" />
+          <Connection Source="TL2Cntrl.CNF" Destination="CtrltoMode2.REQ" dx1="58.82353" />
+          <Connection Source="TL1Cntrl.INITO" Destination="CtrltoMode1.INIT" dx1="58.82353" />
+          <Connection Source="TL1Cntrl.CNF" Destination="CtrltoMode1.REQ" dx1="58.82353" />
+          <Connection Source="CtrltoMode1.INITO" Destination="RT1.INIT" dx1="270.58823" />
+          <Connection Source="CtrltoMode1.CNF" Destination="RT1.REQ" dx1="147.05882" />
+          <Connection Source="CtrltoMode2.INITO" Destination="RT2.INIT" dx1="335.2941" />
+          <Connection Source="CtrltoMode2.CNF" Destination="RT2.REQ" dx1="147.05882" />
+          <Connection Source="RT1.INITO" Destination="TL2Cntrl.INIT" dx1="58.82353" dx2="58.82353" dy="735.2941" />
+          <Connection Source="TL2Cntrl.P_CONTROL" Destination="TL1Cntrl.T_CONTROL" dx1="58.82353" dx2="276.47058" dy="1123.5294" />
+          <Connection Source="StartNet.INITO" Destination="TL1Cntrl.INIT" dx1="305.88235" />
+          <Connection Source="START.COLD" Destination="StartNet.INIT" dx1="58.82353" />
+          <Connection Source="StartNet.IND" Destination="Timer1.START" dx1="29.411764" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="TL2Cntrl.QRed" Destination="CtrltoMode2.SD_1" dx1="58.82353" />
+          <Connection Source="TL2Cntrl.QYellow" Destination="CtrltoMode2.SD_2" dx1="58.82353" />
+          <Connection Source="TL2Cntrl.QGreen" Destination="CtrltoMode2.SD_3" dx1="58.82353" />
+          <Connection Source="TL1Cntrl.QRed" Destination="CtrltoMode1.SD_1" dx1="58.82353" />
+          <Connection Source="TL1Cntrl.QYellow" Destination="CtrltoMode1.SD_2" dx1="58.82353" />
+          <Connection Source="TL1Cntrl.QGreen" Destination="CtrltoMode1.SD_3" dx1="58.82353" />
+          <Connection Source="TL1Cntrl.RT" Destination="RT1.SD_1" dx1="58.82353" />
+          <Connection Source="TL2Cntrl.RT" Destination="RT2.SD_1" dx1="58.82353" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+  <Device Name="Model1" Type="FRAME_DEVICE" x="841.17645" y="2152.9412" >
+    <Parameter Name="BOUNDS" Value="[600,0,300,300]" />
+    <Resource Name="TL1_Model" Type="VIEW_PANEL" x="852.94116" y="547.05884" >
+      <Parameter Name="SIZE" Value="[10,10]" />
+      <FBNetwork >
+        <FB Name="TF1" Type="TF_Model" x="2635.294" y="988.2353" >
+        </FB>
+        <FB Name="CtrltoMode1" Type="SUBL_3" x="1282.3529" y="988.2353" >
+        </FB>
+        <FB Name="ModtoView1" Type="PUBL_3" x="4011.7646" y="876.4706" >
+        </FB>
+        <EventConnections>
+          <Connection Source="START.COLD" Destination="CtrltoMode1.INIT" dx1="58.82353" />
+          <Connection Source="CtrltoMode1.INITO" Destination="TF1.INIT" dx1="58.82353" />
+          <Connection Source="CtrltoMode1.IND" Destination="TF1.REQ" dx1="58.82353" />
+          <Connection Source="TF1.INITO" Destination="ModtoView1.INIT" dx1="223.5294" />
+          <Connection Source="TF1.CNF" Destination="ModtoView1.REQ" dx1="423.52942" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="CtrltoMode1.RD_1" Destination="TF1.IRed" dx1="58.82353" />
+          <Connection Source="CtrltoMode1.RD_2" Destination="TF1.IYellow" dx1="58.82353" />
+          <Connection Source="CtrltoMode1.RD_3" Destination="TF1.IGreen" dx1="58.82353" />
+          <Connection Source="TF1.QRed" Destination="ModtoView1.SD_1" dx1="58.82353" />
+          <Connection Source="TF1.QYellow" Destination="ModtoView1.SD_2" dx1="58.82353" />
+          <Connection Source="TF1.QGreen" Destination="ModtoView1.SD_3" dx1="58.82353" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+    <Resource Name="TL2_Model" Type="VIEW_PANEL" x="852.94116" y="1447.0588" >
+      <Parameter Name="SIZE" Value="[10,10]" />
+      <FBNetwork >
+        <FB Name="TF2" Type="TF_Model" x="2823.5293" y="894.1176" >
+        </FB>
+        <FB Name="ModtoView2" Type="PUBL_3" x="4717.647" y="782.3529" >
+        </FB>
+        <FB Name="CtrltoMode2" Type="SUBL_3" x="1511.7646" y="870.5882" >
+        </FB>
+        <EventConnections>
+          <Connection Source="TF2.INITO" Destination="ModtoView2.INIT" dx1="58.82353" />
+          <Connection Source="TF2.CNF" Destination="ModtoView2.REQ" dx1="58.82353" />
+          <Connection Source="CtrltoMode2.INITO" Destination="TF2.INIT" dx1="58.82353" />
+          <Connection Source="CtrltoMode2.IND" Destination="TF2.REQ" dx1="58.82353" />
+          <Connection Source="START.COLD" Destination="CtrltoMode2.INIT" dx1="58.82353" />
+        </EventConnections>
+        <DataConnections>
+          <Connection Source="TF2.QRed" Destination="ModtoView2.SD_1" dx1="58.82353" />
+          <Connection Source="TF2.QYellow" Destination="ModtoView2.SD_2" dx1="58.82353" />
+          <Connection Source="TF2.QGreen" Destination="ModtoView2.SD_3" dx1="58.82353" />
+          <Connection Source="CtrltoMode2.RD_1" Destination="TF2.IRed" dx1="58.82353" />
+          <Connection Source="CtrltoMode2.RD_2" Destination="TF2.IYellow" dx1="58.82353" />
+          <Connection Source="CtrltoMode2.RD_3" Destination="TF2.IGreen" dx1="58.82353" />
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+</System>
