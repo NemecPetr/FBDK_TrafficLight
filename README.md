@@ -34,12 +34,10 @@ Semaphore inputs:
 + Button click trigger
 + Minimum Green light time
 
-## 2: Sorting System
-
 ## Report
 Documentation regarding implementation and individual steps during development is avaliable on this webpage.
-https://www.overleaf.com/project/69b40f7196358a8cb1ea73e1
+https://www.overleaf.com/2123919533vgkjffghgtzs#e30566
 
 ## Video
-
+https://youtu.be/v9W_dzW9OYM
 
