@@ -1,0 +1,21 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLState</id><coordinates><x>340</x><y>120</y><w>100</w><h>40</h></coordinates><panel_attributes>TL1_View
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>450</x><y>360</y><w>100</w><h>40</h></coordinates><panel_attributes>Control
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLObject</id><coordinates><x>100</x><y>50</y><w>560</w><h>430</h></coordinates><panel_attributes>TL_Task1aCentr
+valign=top
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>340</x><y>180</y><w>100</w><h>40</h></coordinates><panel_attributes>TL2_View
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLObject</id><coordinates><x>310</x><y>90</y><w>160</w><h>150</h></coordinates><panel_attributes>View_HMI
+valign=top
+bg=blue
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLObject</id><coordinates><x>400</x><y>330</y><w>200</w><h>90</h></coordinates><panel_attributes>Controller
+valign=top
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>210</x><y>320</y><w>100</w><h>40</h></coordinates><panel_attributes>TL1_Model
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLState</id><coordinates><x>210</x><y>380</y><w>100</w><h>40</h></coordinates><panel_attributes>TL2_Model
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLObject</id><coordinates><x>180</x><y>290</y><w>160</w><h>150</h></coordinates><panel_attributes>Model
+valign=top
+bg=green
+group=group-7</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>330</y><w>170</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=group-7</panel_attributes><additional_attributes>10;10;150;50</additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>370</y><w>170</w><h>50</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=group-7</panel_attributes><additional_attributes>10;30;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>130</x><y>130</y><w>230</w><h>230</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=group-7</panel_attributes><additional_attributes>210;10;10;10;10;210;80;210</additional_attributes></element><element><id>Relation</id><coordinates><x>150</x><y>190</y><w>210</w><h>230</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=group-7</panel_attributes><additional_attributes>190;10;10;10;10;210;60;210</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>130</y><w>210</w><h>270</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+group=group-7</panel_attributes><additional_attributes>120;250;190;250;190;10;10;10</additional_attributes></element></diagram>

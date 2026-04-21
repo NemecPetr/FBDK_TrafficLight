@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "https://www.holobloc.com/xml/LibraryElement.dtd" >
+<FBType Name="TrafficLight_HMI" Comment="3-LED output emulator" >
+  <Identification Standard="61499-1" Classification="HMI" Function="Output" Type="4xLED" />
+  <VersionInfo Organization="Holobloc Inc" Version="0.4" Author="JHC" Date="2018-07-27" Remarks="Updated I/O documentation." />
+  <VersionInfo Organization="Holobloc Inc" Version="0.3" Author="JHC" Date="2011-03-28" Remarks="Updated documentation." />
+  <VersionInfo Organization="Holobloc Inc" Version="0.2" Author="JHC" Date="2008-11-10" Remarks="Moved to fb.rt.doc." />
+  <VersionInfo Organization="Holobloc Inc" Version="0.1" Author="JHC" Date="2008-06-04" Remarks="Updated DOCTYPE." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2001-02-21" />
+<CompilerInfo packageName="fb.rt.test" >
+  <Compiler Language="Java" Vendor="Sun" Product="JDK" Version="1.7.0" />
+  <Import declaration="fb.datatype.*" />
+  <Import declaration="fb.rt.*" />
+  <Import declaration="fb.rt.hmi.*" />
+</CompilerInfo>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialize" >
+        <With Var="LED2" />
+        <With Var="LED1" />
+        <With Var="LED0" />
+      </Event>
+      <Event Name="REQ" Comment="LED State/Color Update" >
+        <With Var="LED2" />
+        <With Var="LED1" />
+        <With Var="LED0" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="INIT Confirm" >
+      </Event>
+      <Event Name="CNF" Comment="REQ Confirmation" >
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="LED2" Type="BOOL" />
+      <VarDeclaration Name="LED1" Type="BOOL" />
+      <VarDeclaration Name="LED0" Type="BOOL" Comment="LSB - Least Significant Bit" />
+    </InputVars>
+  </InterfaceList>
+  <FBNetwork >
+    <FB Name="OUT2" Type="OUT_BOOL" x="758.8235" y="23.529411" >
+      <Parameter Name="QI" Value="1" />
+      <Parameter Name="LABEL" Value="&#34;RED&#34;" />
+      <Parameter Name="C1" Value="[255,0,0]" />
+      <Parameter Name="C0" Value="[0,0,0]" />
+    </FB>
+    <FB Name="OUT1" Type="OUT_BOOL" x="1605.8823" y="11.764706" >
+      <Parameter Name="QI" Value="1" />
+      <Parameter Name="LABEL" Value="&#34;YELLOW&#34;" />
+      <Parameter Name="C1" Value="[255,255,0]" />
+      <Parameter Name="C0" Value="[0,0,0]" />
+    </FB>
+    <FB Name="OUT0" Type="OUT_BOOL" x="2276.4705" y="11.764706" >
+      <Parameter Name="QI" Value="1" />
+      <Parameter Name="LABEL" Value="&#34;GREEN&#34;" />
+      <Parameter Name="C0" Value="[0,0,0]" />
+      <Parameter Name="C1" Value="[0,125,0]" />
+    </FB>
+    <FB Name="SYNC" Type="PANEL_SYNC" Comment="Synchronize frame buffer" x="2758.8235" y="123.52941" >
+      <Parameter Name="QI" Value="1" />
+    </FB>
+    <EventConnections>
+      <Connection Source="OUT2.INITO" Destination="OUT1.INIT" dx1="35.2941" />
+      <Connection Source="OUT1.INITO" Destination="OUT0.INIT" dx1="41.1765" />
+      <Connection Source="OUT0.INITO" Destination="INITO" dx1="2764.7058" />
+      <Connection Source="OUT2.CNF" Destination="OUT1.REQ" dx1="64.7059" />
+      <Connection Source="OUT1.CNF" Destination="OUT0.REQ" dx1="64.7059" />
+      <Connection Source="OUT0.CNF" Destination="SYNC.REQ" dx1="55.555553" />
+      <Connection Source="SYNC.CNF" Destination="CNF" />
+      <Connection Source="INIT" Destination="OUT2.INIT" />
+      <Connection Source="REQ" Destination="OUT2.REQ" />
+      <Connection Source="OUT2.INITO" Destination="OUT1.INIT" dx1="35.2941" />
+      <Connection Source="OUT1.INITO" Destination="OUT0.INIT" dx1="41.1765" />
+      <Connection Source="OUT0.INITO" Destination="INITO" dx1="2764.7058" />
+      <Connection Source="OUT2.CNF" Destination="OUT1.REQ" dx1="64.7059" />
+      <Connection Source="OUT1.CNF" Destination="OUT0.REQ" dx1="64.7059" />
+      <Connection Source="OUT0.CNF" Destination="SYNC.REQ" dx1="55.555553" />
+      <Connection Source="SYNC.CNF" Destination="CNF" />
+      <Connection Source="INIT" Destination="OUT2.INIT" />
+      <Connection Source="REQ" Destination="OUT2.REQ" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="LED2" Destination="OUT2.IN" />
+      <Connection Source="LED1" Destination="OUT1.IN" />
+      <Connection Source="LED0" Destination="OUT0.IN" />
+      <Connection Source="LED2" Destination="OUT2.IN" />
+      <Connection Source="LED1" Destination="OUT1.IN" />
+      <Connection Source="LED0" Destination="OUT0.IN" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

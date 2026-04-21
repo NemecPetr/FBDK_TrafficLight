@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "https://www.holobloc.com/xml/LibraryElement.dtd" >
+<FBType Name="TL_CentrContr" Comment="Composite Function Block Type" >
+  <Identification Standard="61499-2" />
+  <VersionInfo Organization="Rockwell Automation" Version="0.2" Author="JHC" Date="2003-12-05" Remarks="Renamed from NEWCOMPFB." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.1" Author="JHC" Date="2002-01-08" Remarks="Added DLY FB as example." />
+  <VersionInfo Organization="Rockwell Automation" Version="0.0" Author="JHC" Date="2000-05-27" />
+<CompilerInfo packageName="fb.rt.template" >
+  <Import declaration="fb.datatype.*" />
+  <Import declaration="fb.rt.*" />
+  <Import declaration="fb.rt.myfb.TLCtrl" />
+</CompilerInfo>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Initialization Request" >
+        <With Var="Yellow1" />
+        <With Var="Green1" />
+        <With Var="Yellow2" />
+        <With Var="Green2" />
+        <With Var="TL1_start" />
+        <With Var="TL2_start" />
+      </Event>
+      <Event Name="REQ" Comment="Normal Execution Request" >
+        <With Var="Yellow1" />
+        <With Var="Green1" />
+        <With Var="Yellow2" />
+        <With Var="Green2" />
+        <With Var="TL1_start" />
+        <With Var="TL2_start" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm" >
+        <With Var="R1" />
+        <With Var="Y1" />
+        <With Var="G1" />
+        <With Var="R2" />
+        <With Var="G2" />
+        <With Var="Y2" />
+        <With Var="RT1" />
+        <With Var="RT2" />
+      </Event>
+      <Event Name="CNF" Comment="Execution Confirmation" >
+        <With Var="R1" />
+        <With Var="Y1" />
+        <With Var="G1" />
+        <With Var="R2" />
+        <With Var="Y2" />
+        <With Var="G2" />
+        <With Var="RT1" />
+        <With Var="RT2" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="Yellow1" Type="INT" />
+      <VarDeclaration Name="Green1" Type="INT" />
+      <VarDeclaration Name="Yellow2" Type="INT" />
+      <VarDeclaration Name="Green2" Type="INT" />
+      <VarDeclaration Name="TL1_start" Type="BOOL" />
+      <VarDeclaration Name="TL2_start" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="R1" Type="BOOL" />
+      <VarDeclaration Name="Y1" Type="BOOL" />
+      <VarDeclaration Name="G1" Type="BOOL" />
+      <VarDeclaration Name="R2" Type="BOOL" />
+      <VarDeclaration Name="Y2" Type="BOOL" />
+      <VarDeclaration Name="G2" Type="BOOL" />
+      <VarDeclaration Name="RT1" Type="INT" />
+      <VarDeclaration Name="RT2" Type="INT" />
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork >
+    <FB Name="fB1" Type="TLCtrl" x="1588.2352" y="400.0" >
+    </FB>
+    <FB Name="fB2" Type="TLCtrl" x="2911.7646" y="400.0" >
+    </FB>
+    <EventConnections>
+      <Connection Source="fB1.P_CONTROL" Destination="fB2.T_CONTROL" dx1="58.82353" />
+      <Connection Source="fB2.P_CONTROL" Destination="fB1.T_CONTROL" dx1="58.82353" dx2="358.82352" dy="-570.5882" />
+      <Connection Source="INIT" Destination="fB1.INIT" />
+      <Connection Source="REQ" Destination="fB1.REQ" />
+      <Connection Source="fB2.INITO" Destination="INITO" />
+      <Connection Source="fB2.CNF" Destination="CNF" />
+      <Connection Source="REQ" Destination="fB2.REQ" />
+      <Connection Source="fB1.CNF" Destination="CNF" />
+      <Connection Source="INIT" Destination="fB2.INIT" />
+      <Connection Source="fB1.INITO" Destination="INITO" />
+    </EventConnections>
+    <DataConnections>
+      <Connection Source="Yellow1" Destination="fB1.TYellow" />
+      <Connection Source="Green1" Destination="fB1.TGreen" />
+      <Connection Source="TL1_start" Destination="fB1.StartComm" />
+      <Connection Source="Yellow2" Destination="fB2.TYellow" />
+      <Connection Source="Green2" Destination="fB2.TGreen" />
+      <Connection Source="TL2_start" Destination="fB2.StartComm" />
+      <Connection Source="fB1.QRed" Destination="R1" />
+      <Connection Source="fB1.QYellow" Destination="Y1" />
+      <Connection Source="fB1.QGreen" Destination="G1" />
+      <Connection Source="fB2.QRed" Destination="R2" />
+      <Connection Source="fB2.QYellow" Destination="Y2" />
+      <Connection Source="fB2.QGreen" Destination="G2" />
+      <Connection Source="fB1.RT" Destination="RT1" />
+      <Connection Source="fB2.RT" Destination="RT2" />
+    </DataConnections>
+  </FBNetwork>
+</FBType>

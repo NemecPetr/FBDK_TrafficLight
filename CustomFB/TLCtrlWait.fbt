@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE FBType SYSTEM "https://www.holobloc.com/xml/LibraryElement.dtd" >
+<FBType Name="TLCtrlWait" Comment="a simple FB Function Block Type" >
+  <Identification Standard="61499-1" Type="Simple FB" Description="Template for a Simple FB" />
+  <VersionInfo Organization="Holobloc Inc" Version="0.2" Author="JHC" Date="2020-05-24" Remarks="Added ECC documentation." />
+  <VersionInfo Organization="Holobloc Inc" Version="0.1" Author="JHC" Date="2020-05-19" Remarks="Changed name from SimpleFB back to Simple." />
+  <VersionInfo Organization="Holobloc Inc" Version="0.0" Author="JHC" Date="2020-05-05" />
+<CompilerInfo packageName="fb.rt.myfb" >
+  <Compiler Language="Java" Vendor="AdoptOpenJDK" Product="JDK" Version="1.8.0_222" />
+  <Import declaration="fb.datatype.*" />
+  <Import declaration="fb.rt.*" />
+</CompilerInfo>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Comment="Service Initialization" >
+        <With Var="TYellow" />
+        <With Var="TGreen" />
+        <With Var="StartComm" />
+      </Event>
+      <Event Name="REQ" Comment="Service Request" >
+        <With Var="TYellow" />
+        <With Var="TGreen" />
+        <With Var="StartComm" />
+      </Event>
+      <Event Name="T_CONTROL" >
+        <With Var="TYellow" />
+        <With Var="TGreen" />
+        <With Var="StartComm" />
+      </Event>
+      <Event Name="PedButt" >
+        <With Var="TYellow" />
+        <With Var="TGreen" />
+        <With Var="StartComm" />
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Comment="Initialization Confirm" >
+        <With Var="QRed" />
+        <With Var="QYellow" />
+        <With Var="QGreen" />
+        <With Var="RT" />
+      </Event>
+      <Event Name="CNF" Comment="Confirmation of Requested Service" >
+        <With Var="QRed" />
+        <With Var="QYellow" />
+        <With Var="QGreen" />
+        <With Var="RT" />
+      </Event>
+      <Event Name="P_CONTROL" >
+        <With Var="QRed" />
+        <With Var="QYellow" />
+        <With Var="QGreen" />
+        <With Var="RT" />
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="TYellow" Type="INT" Comment="Event Input Qualifier" />
+      <VarDeclaration Name="TGreen" Type="INT" Comment="Input Variable" />
+      <VarDeclaration Name="StartComm" Type="BOOL" />
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="QRed" Type="BOOL" Comment="Event Output Qualifier" />
+      <VarDeclaration Name="QYellow" Type="BOOL" Comment="Service Status" />
+      <VarDeclaration Name="QGreen" Type="BOOL" Comment="Output variable" />
+      <VarDeclaration Name="RT" Type="INT" />
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <InternalVars>
+      <VarDeclaration Name="CountVar" Type="INT" />
+      <VarDeclaration Name="Step" Type="INT" />
+      <VarDeclaration Name="pom" Type="BOOL" />
+    </InternalVars>
+    <ECC >
+      <ECState Name="WAIT" x="1517.647" y="1329.4117" >
+      </ECState>
+      <ECState Name="IDLE" x="3611.7646" y="1405.8823" >
+        <ECAction Algorithm="IdleAlg" Output="CNF" />
+      </ECState>
+      <ECState Name="INIT" x="1794.1176" y="164.70587" >
+        <ECAction Algorithm="INIT" Output="INITO" />
+      </ECState>
+      <ECState Name="InCtrl" x="3111.7646" y="541.17645" >
+        <ECAction Algorithm="Cntrl" Output="CNF" />
+      </ECState>
+      <ECState Name="GreenL" x="3317.647" y="2194.1177" >
+        <ECAction Algorithm="GreenAlg" Output="CNF" />
+      </ECState>
+      <ECState Name="YellowL" x="2205.8823" y="2470.5881" >
+        <ECAction Algorithm="YellowAlg" Output="CNF" />
+      </ECState>
+      <ECState Name="PassCtrl" x="635.2941" y="2400.0" >
+        <ECAction Algorithm="PassCtrlAlg" Output="P_CONTROL" />
+      </ECState>
+      <ECState Name="WaitingSt" x="382.35294" y="452.94116" >
+        <ECAction Algorithm="WaitAlg" Output="CNF" />
+      </ECState>
+      <ECTransition Source="WAIT" Destination="IDLE" Condition="REQ [Step = 0]" x="3200.0" y="1088.2352" />
+      <ECTransition Source="WAIT" Destination="INIT" Condition="INIT" x="1923.5294" y="641.17645" />
+      <ECTransition Source="INIT" Destination="WAIT" Condition="1" x="1564.7058" y="570.5882" />
+      <ECTransition Source="IDLE" Destination="WAIT" Condition="1" x="3041.1765" y="1552.9412" />
+      <ECTransition Source="WAIT" Destination="InCtrl" Condition="T_CONTROL" x="2847.0588" y="435.2941" />
+      <ECTransition Source="InCtrl" Destination="WAIT" Condition="1" x="2929.4116" y="852.94116" />
+      <ECTransition Source="WAIT" Destination="GreenL" Condition="REQ [Step =1]" x="3264.7058" y="1823.5294" />
+      <ECTransition Source="GreenL" Destination="WAIT" Condition="1" x="2852.9412" y="2152.9412" />
+      <ECTransition Source="WAIT" Destination="YellowL" Condition="REQ [Step = 2]" x="2441.1765" y="2194.1177" />
+      <ECTransition Source="YellowL" Destination="WAIT" Condition="1" x="1929.4117" y="1976.4706" />
+      <ECTransition Source="WAIT" Destination="PassCtrl" Condition="REQ [Step = 3]" x="1129.4117" y="2188.2354" />
+      <ECTransition Source="PassCtrl" Destination="WAIT" Condition="1" x="882.3529" y="1958.8235" />
+      <ECTransition Source="WAIT" Destination="WaitingSt" Condition="PedButt" x="517.64703" y="1176.4706" />
+      <ECTransition Source="WaitingSt" Destination="WAIT" Condition="1" x="864.7059" y="923.5294" />
+    </ECC>
+  <Algorithm Name="INIT" Comment="Initialization Algorithm" >
+<ST><![CDATA[IF StartComm = TRUE THEN
+	Step := 1;
+	CountVar := 0;
+ELSE
+	Step := 0;
+	CountVar := 0;
+END_IF]]></ST>
+  </Algorithm>
+  <Algorithm Name="IdleAlg" Comment="Normally Executed Algorithm" >
+<ST><![CDATA[QRed := TRUE;
+QYellow := FALSE;
+QGreen := FALSE;
+		
+RT := 0;]]></ST>
+  </Algorithm>
+  <Algorithm Name="GreenAlg" >
+<ST><![CDATA[CountVar := CountVar + 1;
+
+QRed := FALSE;
+QYellow := FALSE;
+QGreen := TRUE;
+		
+RT := TGreen - CountVar;
+
+IF RT <= 0 OR (pom AND CountVar >=4) THEN		
+	CountVar := 0;
+	pom := FALSE;
+	Step := 2;
+END_IF]]></ST>
+  </Algorithm>
+  <Algorithm Name="Cntrl" >
+<ST><![CDATA[Step := 1;]]></ST>
+  </Algorithm>
+  <Algorithm Name="YellowAlg" >
+<ST><![CDATA[CountVar := CountVar + 1;
+
+QRed := FALSE;
+QYellow := TRUE;
+QGreen := FALSE;
+		
+RT := TYellow - CountVar;
+
+IF RT <= 0 THEN
+	CountVar := 0;
+	Step := 3;
+END_IF]]></ST>
+  </Algorithm>
+  <Algorithm Name="PassCtrlAlg" >
+<ST><![CDATA[CountVar := 0;
+Step := 0;]]></ST>
+  </Algorithm>
+  <Algorithm Name="WaitAlg" >
+<ST><![CDATA[pom := TRUE;]]></ST>
+  </Algorithm>
+  </BasicFB>
+</FBType>
